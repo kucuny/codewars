@@ -26,8 +26,6 @@ import unittest
 import math
 
 def sol_equa(n):
-    divisor = get_divisor(n)
-
     """
     x - 2y = first_num
     x + 2y = second_num
@@ -35,30 +33,18 @@ def sol_equa(n):
 
     result = []
 
-    for i in divisor:
-        for j in divisor:
-            y = (j - i) / 4
-            x = (i + j) / 2
+    for i in range(1, int(math.sqrt(n)) + 1):
+        if n % i != 0:
+            continue
 
-            if i * j == n and x >= 0 and y >= 0 and (j == x + 2 * y) and (i == x - 2 * y):
-                result.append([x, y])
+        j = n / i
+        y = (j - i) / 4
+        x = i + 2 * y
+
+        if x >= 0 and y >= 0 and (j == x + 2 * y) and (i == x - 2 * y):
+            result.append([x, y])
 
     return sorted(result, reverse=True)
-
-
-def get_divisor(n):
-    result = []
-    current_number = 1
-    sqrt_limit = math.sqrt(n)
-    while current_number not in result or sqrt_limit > current_number:
-        calc = n % current_number
-        if calc == 0:
-            result.append(current_number)
-            result.append(n / current_number)
-
-        current_number += 1
-
-    return list(set(result))
 
 
 class TestDiophantineEquation(unittest.TestCase):
