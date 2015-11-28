@@ -2,8 +2,8 @@ import unittest
 
 
 def split_the_bill(x):
-    avg = sum(x.values()) / len(x)
-    return {key: value - avg for key, value in x.items()}
+    avg = sum(x.values()) / float(len(x))
+    return {key: round(value - avg, 2) for key, value in x.items()}
 
 
 class TestSplitTheBill(unittest.TestCase):
